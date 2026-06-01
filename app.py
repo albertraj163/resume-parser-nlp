@@ -70,6 +70,26 @@ def api_sample():
     return jsonify({"text": text, "result": parse_resume(text)})
 
 
+def _pick_port() -> int:
+    if os.environ.get("PORT"):
+        return int(os.environ["PORT"])
+
+    import socket
+
+    for port in range(5000, 5010):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            try:
+                sock.bind(("0.0.0.0", port))
+                return port
+            except OSError:
+                continue
+
+    return 5050
+
+
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = _pick_port()
+    url = f"http://localhost:{port}"
+    print(f"\n  Resume Parser NLP is running at: {url}\n")
+    app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)

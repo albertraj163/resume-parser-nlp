@@ -1,4 +1,4 @@
-(() => {
+document.addEventListener("DOMContentLoaded", () => {
   const resumeText = document.getElementById("resumeText");
   const fileInput = document.getElementById("fileInput");
   const uploadZone = document.getElementById("uploadZone");
@@ -177,4 +177,4 @@
     statusPill.textContent = "Ready";
     statusPill.className = "status-pill";
   });
-})();
+});
