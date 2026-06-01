@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Parser NLP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header__brand">
+        <div class="header__logo">RP</div>
+        <div>
+          <h1>Resume Parser NLP</h1>
+          <p>Extract structured data from resumes using regex &amp; spaCy</p>
+        </div>
+      </div>
+      <div class="header__badge">Local Demo</div>
+    </header>
+
+    <main class="main">
+      <section class="panel panel--input">
+        <div class="panel__header">
+          <h2>Input Resume</h2>
+          <button type="button" id="loadSample" class="btn btn--ghost">Load sample</button>
+        </div>
+
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept=".txt,.pdf" hidden>
+          <div class="upload-zone__content">
+            <div class="upload-zone__icon">📄</div>
+            <p><strong>Drop a resume here</strong> or click to browse</p>
+            <span class="upload-zone__hint">Supports .txt and .pdf (max 2 MB)</span>
+          </div>
+        </div>
+
+        <div class="divider"><span>or paste text</span></div>
+
+        <textarea
+          id="resumeText"
+          placeholder="Paste resume content here...
+
+Example:
+Name: John Doe
+Email: john.doe@example.com
+Skills: Python, Machine Learning, SQL
+Experience: 2 years at ExampleCorp"
+          spellcheck="false"
+        ></textarea>
+
+        <div class="panel__actions">
+          <button type="button" id="clearBtn" class="btn btn--ghost">Clear</button>
+          <button type="button" id="parseBtn" class="btn btn--primary">
+            <span class="btn__label">Parse Resume</span>
+            <span class="btn__spinner" hidden></span>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel panel--output">
+        <div class="panel__header">
+          <h2>Parsed Results</h2>
+          <span class="status-pill" id="statusPill">Ready</span>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <div class="empty-state__icon">🔍</div>
+          <h3>No results yet</h3>
+          <p>Upload a resume or paste text, then click <strong>Parse Resume</strong>.</p>
+        </div>
+
+        <div id="results" class="results" hidden>
+          <div class="result-grid">
+            <article class="result-card">
+              <span class="result-card__label">Name</span>
+              <p class="result-card__value" id="resName">—</p>
+            </article>
+            <article class="result-card">
+              <span class="result-card__label">Email</span>
+              <p class="result-card__value" id="resEmail">—</p>
+            </article>
+            <article class="result-card">
+              <span class="result-card__label">Phone</span>
+              <p class="result-card__value" id="resPhone">—</p>
+            </article>
+          </div>
+
+          <article class="result-block">
+            <h3>Skills</h3>
+            <div id="resSkills" class="tag-list"></div>
+          </article>
+
+          <article class="result-block">
+            <h3>Experience</h3>
+            <ul id="resExperience" class="result-list"></ul>
+          </article>
+
+          <article class="result-block">
+            <h3>Education</h3>
+            <ul id="resEducation" class="result-list"></ul>
+          </article>
+
+          <article class="result-block">
+            <h3>Named Entities <span class="muted">(spaCy)</span></h3>
+            <div id="resEntities" class="entity-list"></div>
+          </article>
+
+          <article class="result-block result-block--raw">
+            <h3>Raw Text</h3>
+            <pre id="resRaw"></pre>
+          </article>
+        </div>
+
+        <div id="errorState" class="error-state" hidden>
+          <p id="errorMessage"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Resume Parser NLP · Regex + spaCy demo</span>
+      <span>Running on <code id="serverUrl"></code></span>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

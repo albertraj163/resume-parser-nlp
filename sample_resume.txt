@@ -1,0 +1,4 @@
+Name: John Doe
+Email: john.doe@example.com
+Skills: Python, Machine Learning, SQL
+Experience: 2 years at ExampleCorp
