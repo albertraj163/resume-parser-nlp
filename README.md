@@ -2,8 +2,20 @@
 
 A web demo to extract structured fields from plain-text resumes using **regex** and **spaCy** named-entity recognition.
 
+**Repository:** https://github.com/albertraj163/resume-parser-nlp
+
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Flask](https://img.shields.io/badge/Flask-3.x-green)
+
+## Live Link (Localhost)
+
+This app runs on your machine. After starting the server, open the URL shown in the terminal:
+
+```
+http://localhost:5001
+```
+
+> **Note:** Port `5000` may already be used by another app on your system and show a blank page. The server auto-picks the next free port (`5001`, `5002`, etc.) and prints the correct link when it starts.
 
 ## Features
 
@@ -46,7 +58,13 @@ python -m spacy download en_core_web_sm
 python app.py
 ```
 
-Open your browser at **http://localhost:5000**
+The terminal will print the exact URL, for example:
+
+```
+Resume Parser NLP is running at: http://localhost:5001
+```
+
+Open that link in your browser.
 
 ## CLI Usage
 
@@ -74,7 +92,7 @@ print(result)
 Send either form field `text` or upload a `file` (`.txt` / `.pdf`).
 
 ```bash
-curl -X POST http://localhost:5000/api/parse \
+curl -X POST http://localhost:5001/api/parse \
   -F "text=Name: Jane Doe\nEmail: jane@example.com\nSkills: Python, SQL"
 ```
 
